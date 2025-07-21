@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import { SortFrameContainer, SortSelect, SortTitle } from "./SortComponentStyles"
-import { setSortedProducts } from "../../reducers/productsReducer";
-import { useDispatch } from "react-redux";
+import { SortFrameContainer, SortSelect, SortTitle } from "./SortComponentStyles";
+import { useProductStore } from "../../store/store";
 
 const categories = ['Name', 'Recently Added'];
 
 const SortComponent = () => {
 
+    const { setSortedProducts } = useProductStore((state) => state);
     const [category, setCategory] = useState('');
-    // const dispatch = useDispatch();
 
-    // useEffect(() => {
-        // dispatch(setSortedProducts(category));
-    // }, [category, dispatch]);
+    useEffect(() => {
+        setSortedProducts(category);
+    }, [category, setSortedProducts]);
 
     return (
         <SortFrameContainer>
