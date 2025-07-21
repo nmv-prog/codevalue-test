@@ -11,13 +11,9 @@ type Props = {
 }
 
 const AllProducts = ({ showCreateForm, setShowCreateForm }: Props) => {
-    // const products = useSelector((state: RootState) => state.products.products);
 
     const { products, deleteProduct } = useProductStore((state) => state);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    // const dispatch = useDispatch();
-
-
 
     const handleProductClick = (product: Product) => {
         setShowCreateForm(false);
@@ -43,7 +39,6 @@ const AllProducts = ({ showCreateForm, setShowCreateForm }: Props) => {
                 {(selectedProduct || showCreateForm) && <ProductComponent product={showCreateForm ? null : selectedProduct} />}
 
             </BlockWrapper>}
-
 
         </ProductFrameContainer>
     )

@@ -12,7 +12,7 @@ const ProductComponent = ({ product }: Props) => {
     const selectedProduct = useProductStore((state) =>
         product ? state.products.find((p: Product) => p.id === product.id) : null);
 
-    const { addProduct } = useProductStore((state) => state);
+    const { addProduct, updateProduct } = useProductStore((state) => state);
 
     const [editedProduct, setEditedProduct] = useState<Product>({
         id: product?.id || crypto.randomUUID(),
@@ -75,7 +75,7 @@ const ProductComponent = ({ product }: Props) => {
         }
 
         if (product) {
-            // dispatch(updateProduct({ id: editedProduct.id, updatedProduct: editedProduct }));
+            updateProduct(editedProduct.id, editedProduct );
             setIsChanged(false);
         } else {
             addProduct(editedProduct);
