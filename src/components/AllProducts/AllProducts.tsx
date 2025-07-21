@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct } from "../../reducers/productsReducer";
-import { type RootState } from "../../store/store";
+import { useProductStore } from "../../store/store";
 import type { Product } from "../../utils/types";
 import ProductComponent from "../Product/ProductComponent";
 import ProductItem from "../ProductItem/ProductItem";
@@ -13,10 +11,12 @@ type Props = {
 }
 
 const AllProducts = ({ showCreateForm, setShowCreateForm }: Props) => {
-    const products = useSelector((state: RootState) => state.products.products);
+    // const products = useSelector((state: RootState) => state.products.products);
+
+    const { products, deleteProduct } = useProductStore((state) => state);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const dispatch = useDispatch();
-    
+    // const dispatch = useDispatch();
+
 
 
     const handleProductClick = (product: Product) => {
@@ -25,7 +25,7 @@ const AllProducts = ({ showCreateForm, setShowCreateForm }: Props) => {
     };
 
     const handleDelete = (id: string) => {
-        dispatch(deleteProduct({ id }));
+        deleteProduct(id);
         setSelectedProduct(null);
     };
 

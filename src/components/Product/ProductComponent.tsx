@@ -1,18 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux'
-import type { RootState } from '../../store/store'
+import { useEffect, useState } from 'react'
+import { useProductStore } from '../../store/store'
 import type { Product } from '../../utils/types'
 import { ProductDescription, ProductDescriptionTitle, ProductFrameContainer, ProductImage, ProductName, ProductNameTitle, ProductPrice, ProductPriceTitle, ProductPriceWrapper, ProductTitle, SaveButton } from './ProductStyle'
-import { useEffect, useState } from 'react'
-import { addProduct, updateProduct } from '../../reducers/productsReducer'
 
 type Props = {
     product?: Product | null,
 }
 
 const ProductComponent = ({ product }: Props) => {
-    const selectedProduct = useSelector((state: RootState) =>
-        product ? state.products.products.find((p: Product) => p.id === product.id) : null);
-    const dispatch = useDispatch();
+
+    const selectedProduct = useProductStore((state) =>
+        product ? state.products.find((p: Product) => p.id === product.id) : null);
+
+    const { addProduct } = useProductStore((state) => state);
 
     const [editedProduct, setEditedProduct] = useState<Product>({
         id: product?.id || crypto.randomUUID(),
@@ -47,13 +47,13 @@ const ProductComponent = ({ product }: Props) => {
 
     const handleResetValues = () => {
         setEditedProduct({
-                id: crypto.randomUUID(),
-                name: '',
-                description: '',
-                price: 0,
-                image: '/placeholder.png',
-                creationDate: new Date().toISOString()
-            })
+            id: crypto.randomUUID(),
+            name: '',
+            description: '',
+            price: 0,
+            image: '/placeholder.png',
+            creationDate: new Date().toISOString()
+        })
     };
 
     const handleSave = () => {
@@ -75,10 +75,10 @@ const ProductComponent = ({ product }: Props) => {
         }
 
         if (product) {
-            dispatch(updateProduct({ id: editedProduct.id, updatedProduct: editedProduct }));
+            // dispatch(updateProduct({ id: editedProduct.id, updatedProduct: editedProduct }));
             setIsChanged(false);
         } else {
-            dispatch(addProduct(editedProduct));
+            addProduct(editedProduct);
             setIsChanged(false);
             handleResetValues();
         }

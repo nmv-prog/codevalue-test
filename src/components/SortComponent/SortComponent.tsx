@@ -8,11 +8,11 @@ const categories = ['Name', 'Recently Added'];
 const SortComponent = () => {
 
     const [category, setCategory] = useState('');
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(setSortedProducts(category));
-    }, [category, dispatch]);
+    // useEffect(() => {
+        // dispatch(setSortedProducts(category));
+    // }, [category, dispatch]);
 
     return (
         <SortFrameContainer>

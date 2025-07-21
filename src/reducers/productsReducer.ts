@@ -9,9 +9,9 @@ export const productsReducer = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        deleteProduct(state, action) {
-            state.products = state.products.filter(product => product.id !== action.payload.id);
-        },
+        // deleteProduct(state, action) {
+        //     state.products = state.products.filter(product => product.id !== action.payload.id);
+        // },
         setSortedProducts(state, action) {
             const category = action.payload;
             let sortedProducts;
@@ -39,11 +39,11 @@ export const productsReducer = createSlice({
                 state.products[index] = { ...state.products[index], ...updatedProduct };
             }
         },
-        addProduct(state, action) {
-            state.products.push(action.payload);
-        }
+        // addProduct(state, action) {
+        //     state.products.push(action.payload);
+        // }
     }
 });
 
-export const { deleteProduct, setSortedProducts, updateProduct, addProduct } = productsReducer.actions;
+export const { setSortedProducts, updateProduct } = productsReducer.actions;
 export default productsReducer.reducer;
